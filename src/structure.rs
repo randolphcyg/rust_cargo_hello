@@ -67,7 +67,7 @@ fn main() {
     let ross = Person { name, age };
 
     // Debug方式打印结构体
-    println!("{:?}", ross);
+    println!("{:?}, name: {}, age: {}", ross, ross.name, ross.age);
 
     // 实例化结构体Point
     let point: Point = Point { x: 10.3, y: 0.4 };

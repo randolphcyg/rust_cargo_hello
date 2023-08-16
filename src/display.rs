@@ -32,7 +32,7 @@ impl fmt::Display for Point2D {
 
 impl fmt::Binary for Point2D {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "x: {:b}, y: {:b}", self.x, self.y)
+        write!(f, "x: {}, y: {}", self.x, self.y)
     }
 }
 

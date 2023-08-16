@@ -1,10 +1,13 @@
 mod array;
 mod display;
+mod enumeration;
 mod format;
+mod linked_list_enum;
 mod list;
 mod primitives;
 mod structure;
 mod tuple;
+mod variable;
 
 fn main() {
     println!("Hello rust World");

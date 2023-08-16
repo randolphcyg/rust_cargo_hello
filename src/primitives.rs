@@ -1,3 +1,6 @@
+// 该属性用于隐藏对未使用代码的警告。
+#![allow(dead_code)]
+
 fn main() {
     let logical: bool = true;
     println!("{}", logical);
