@@ -179,6 +179,150 @@ fn destructure_struct() {
     // let Foo { y } = foo;
 }
 
+// 匹配守卫是一个位于match分支模式之后的额外if条件
+fn match_guard() {
+    #[allow(dead_code)]
+    enum Temperature {
+        Celsius(i32),
+        Fahrenheit(i32),
+    }
+
+    let temperature = Temperature::Celsius(56);
+
+    match temperature {
+        // 这个分支包含match guard
+        Temperature::Celsius(t) if t > 30 => println!("{}C is above 30 Celsius", t),
+        Temperature::Celsius(t) => println!("{}C is below 30 Celsius", t),
+
+        Temperature::Fahrenheit(t) if t > 86 => println!("{}F is above 86 Fahrenheit", t),
+        Temperature::Fahrenheit(t) => println!("{}F is below 86 Fahrenheit", t),
+    }
+
+    // 请注意，编译器在检查匹配表达式是否涵盖所有模式时不会考虑守护条件
+    let num: u8 = 4;
+    match num {
+        i if i == 0 => println!("Zero"),
+        i if i > 0 => println!("Greater than zero"),
+        _ => unreachable!("Should never happen"),
+    }
+}
+
+// @符号
+fn binding() {
+    fn age() -> u32 {
+        15
+    }
+
+    println!("Tell me what type of person you are");
+    match age() {
+        0 => println!("I haven't celebrated my first birthday yet"),
+        // 绑定匹配值到n，就可以利用这个值了
+        n @ 1..=12 => println!("I'm a child of age {:?}", n),
+        n @ 13..=19 => println!("I'm a teen of age {:?}", n),
+        n => println!("I'm an old person of age {:?}", n),
+    }
+
+    fn some_num() -> Option<u32> {
+        Some(18)
+    }
+    match some_num() {
+        // 得到 `Some` 可变类型，如果它的值（绑定到 `n` 上）等于 42，则匹配。
+        Some(n @ 18) => println!("The Answer: {}!", n),
+        // 匹配任意其他数字。
+        Some(n) => println!("Not interesting... {}", n),
+        // 匹配任意其他值（`None` 可变类型）。
+        _ => (),
+    }
+}
+
+fn if_let() {
+    let num = Some(7);
+    // `if let` 结构读作：若 `let` 将 `number` 解构成 `Some(i)`，则执行
+    // 语句块（`{}`）
+    if let Some(i) = num {
+        println!("Matched {:?}!", i);
+    }
+
+    let letter: Option<i32> = None;
+    // 如果要指明失败情形，就使用 else：
+    if let Some(i) = letter {
+        println!("Matched {:?}!", i);
+    } else {
+        // 解构失败。切换到失败情形。
+        println!("Didn't match a number. Let's go with a letter!");
+    };
+
+    let emoticon: Option<i32> = None;
+    // 提供另一种失败情况下的条件。
+    let i_like_letters = false;
+    if let Some(i) = emoticon {
+        println!("Matched {:?}!", i);
+        // 解构失败。使用 `else if` 来判断是否满足上面提供的条件。
+    } else if i_like_letters {
+        println!("Didn't match a number. Let's go with a letter!");
+    } else {
+        // 条件的值为 false。于是以下是默认的分支：
+        println!("I don't like letters. Let's go with an emoticon :)!");
+    };
+
+    // 匹配枚举
+    // 以这个 enum 类型为例
+    enum Foo {
+        Bar,
+        Baz,
+        Qux(u32),
+    }
+    // 创建变量
+    let a = Foo::Bar;
+    let b = Foo::Baz;
+    let c = Foo::Qux(100);
+
+    // 变量 a 匹配到了 Foo::Bar
+    if let Foo::Bar = a {
+        println!("a is foobar");
+    }
+
+    // 变量 b 没有匹配到 Foo::Bar，因此什么也不会打印。
+    if let Foo::Bar = b {
+        println!("b is foobar");
+    }
+
+    // 变量 c 匹配到了 Foo::Qux，它带有一个值，就和上面例子中的 Some() 类似。
+    if let Foo::Qux(value) = c {
+        println!("c is {}", value);
+    }
+
+    // 允许匹配枚举非参数化的变量
+    enum Foo2 {
+        Bar,
+    }
+    let a = Foo2::Bar;
+
+    // 变量匹配 Foo2::Bar
+    if let Foo2::Bar = a {
+        // ^-- 这就是编译时发现的错误。使用 `if let` 来替换它。
+        println!("a is foobar2");
+    }
+}
+
+fn while_let() {
+    // 将 `optional` 设为 `Option<i32>` 类型
+    let mut optional = Some(0);
+
+    // 这读作：当 `let` 将 `optional` 解构成 `Some(i)` 时，就
+    // 执行语句块（`{}`）。否则就 `break`。
+    while let Some(i) = optional {
+        if i > 9 {
+            println!("Greater than 9, quit!");
+            optional = None;
+        } else {
+            println!("`i` is `{:?}`. Try again.", i);
+            optional = Some(i + 1);
+        }
+        // ^ 使用的缩进更少，并且不用显式地处理失败情况。
+    }
+}
+
 fn main() {
     println!("{}", "***************");
     base();
@@ -192,4 +336,12 @@ fn main() {
     pointers_ref();
     println!("{}", "***************");
     destructure_struct();
+    println!("{}", "***************");
+    match_guard();
+    println!("{}", "***************");
+    binding();
+    println!("{}", "***************");
+    if_let();
+    println!("{}", "***************");
+    while_let();
 }
