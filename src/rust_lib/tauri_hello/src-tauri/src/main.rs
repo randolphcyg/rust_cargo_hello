@@ -8,28 +8,28 @@ fn greet(name: &str) -> String {
 }
 
 fn main() {
+    use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
+    // 这里 `"quit".to_string()` 定义菜单项 ID，第二个参数是菜单项标签。
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+    let close = CustomMenuItem::new("close".to_string(), "Close");
+    let submenu = Submenu::new("File", Menu::new().add_item(quit).add_item(close));
+    let menu = Menu::new()
+        .add_native_item(MenuItem::Copy)
+        .add_item(CustomMenuItem::new("hide", "Hide"))
+        .add_submenu(submenu);
+    let menu = Menu::new(); // configure the menu
+
     tauri::Builder::default()
         // 新增关闭提示的逻辑
-        .on_window_event(|event| {
-            match event.event() {
-                tauri::WindowEvent::CloseRequested { api, .. } => {
-                    //阻止默认关闭
-                    api.prevent_close();
-
-                    let window = event.window().clone();
-                    tauri::api::dialog::confirm(
-                        Some(&event.window()),
-                        "关闭应用",
-                        "确定关闭?",
-                        move |answer| {
-                            if answer {
-                                let _ = window.close();
-                            }
-                        },
-                    )
-                }
-                _ => {} //todo
+        .menu(menu)
+        .on_menu_event(|event| match event.menu_item_id() {
+            "quit" => {
+                std::process::exit(0);
             }
+            "close" => {
+                event.window().close().unwrap();
+            }
+            _ => {}
         })
         .invoke_handler(tauri::generate_handler![greet])
         .run(tauri::generate_context!())
