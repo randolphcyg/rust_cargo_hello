@@ -4,10 +4,13 @@ mod enumeration;
 mod format;
 mod linked_list_enum;
 mod list;
+mod module;
 mod primitives;
 mod structure;
 mod tuple;
 mod variable;
+mod super_self;
+mod generic;
 
 fn main() {
     println!("Hello rust World");
@@ -82,5 +85,10 @@ fn main() {
     let age = 27;
     let ross = Person { name, age };
 
-    println!("{:#?}", ross)
+    println!("{:#?}", ross);
+
+    variable::run();
+    super_self::run();
+    module::run();
+    generic::run();
 }

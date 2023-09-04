@@ -1,4 +1,4 @@
-fn main() {
+pub fn run() {
     // [作用域和遮蔽]
     // 此绑定生存于 main 函数中
     let long_lived_binding = 1;
@@ -56,9 +56,9 @@ fn main() {
         x_cube + x_squared + x
     };
 
-    let z = {
+    let z: () = {
         // 分号导致计算出的值没有分配给z，z是()
-        2 * x;
+        let _ = 2 * x;
     };
 
     println!("x is {:?}", x);
