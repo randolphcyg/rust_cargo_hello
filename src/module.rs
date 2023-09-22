@@ -38,7 +38,8 @@ mod deeply {
     }
 }
 
-pub fn run() {
+#[allow(dead_code)]
+pub fn main() {
     // [结构体可见性]
     let id = Uuid::new_v4();
     println!("The open box id: {}", id);

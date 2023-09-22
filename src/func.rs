@@ -1,19 +1,3 @@
-// 和 C/C++ 不一样，Rust 的函数定义位置是没有限制的
-fn main() {
-    // 我们可以在这里使用函数，后面再定义它
-    fizzbuzz_to(100);
-
-    higher_order_fn();
-
-    // foo();
-    let _a: () = some_fn();
-
-    println!(
-        "Sum of odd numbers up to 9 (excluding): {}",
-        sum_odd_numbers(9)
-    );
-}
-
 fn is_divisible_by(lhs: u32, rhs: u32) -> bool {
     if rhs == 0 {
         return false;
@@ -95,4 +79,21 @@ fn sum_odd_numbers(up_to: u32) -> u32 {
         acc += addition;
     }
     acc
+}
+
+#[allow(dead_code)]
+// 和 C/C++ 不一样，Rust 的函数定义位置是没有限制的
+pub fn main() {
+    // 我们可以在这里使用函数，后面再定义它
+    fizzbuzz_to(100);
+
+    higher_order_fn();
+
+    // foo();
+    let _a: () = some_fn();
+
+    println!(
+        "Sum of odd numbers up to 9 (excluding): {}",
+        sum_odd_numbers(9)
+    );
 }

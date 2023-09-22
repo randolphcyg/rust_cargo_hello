@@ -36,6 +36,7 @@ mod my {
     }
 }
 
-pub fn run() {
+#[allow(dead_code)]
+pub fn main() {
     my::indirect_call();
 }

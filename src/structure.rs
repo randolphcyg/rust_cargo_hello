@@ -61,7 +61,8 @@ impl fmt::Display for Rectangle {
     }
 }
 
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     let name = String::from("Ross");
     let age = 27;
     let ross = Person { name, age };

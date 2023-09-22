@@ -1,6 +1,6 @@
 #![allow(unreachable_code)]
-
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     // 标签
     'outer: loop {
         println!("Entered the outer loop");

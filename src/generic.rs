@@ -2,7 +2,8 @@ struct A;
 
 struct SingleGen<T>(T);
 
-pub fn run() {
+#[allow(dead_code)]
+pub fn main() {
     let _s = SingleGen(A);
 
     let _char: SingleGen<char> = SingleGen('a');

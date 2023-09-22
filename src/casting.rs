@@ -1,7 +1,8 @@
 // 不显示类型转换产生的溢出警告。
 #![allow(overflowing_literals)]
 
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     let decimal = 65.4321_f32;
 
     // 错误！不提供隐式转换

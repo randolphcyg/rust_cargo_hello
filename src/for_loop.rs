@@ -1,4 +1,5 @@
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     for i in 1..3 {
         println!("左闭右开[):{}", i)
     }

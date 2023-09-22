@@ -42,7 +42,8 @@ impl List {
     }
 }
 
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     let mut list = List::new();
     list = list.prepend(1);
     list = list.prepend(2);

@@ -1,5 +1,5 @@
 use std::convert::{TryFrom, TryInto};
-use std::fmt;
+// use std::fmt;
 use std::string::ToString;
 
 #[derive(Debug)]
@@ -44,7 +44,8 @@ impl ToString for Circle {
     }
 }
 
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     let my_str = "hello";
     let my_string = String::from(my_str);
 

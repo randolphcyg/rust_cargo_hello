@@ -1,4 +1,5 @@
-pub fn run() {
+#[allow(dead_code)]
+pub fn main() {
     // [作用域和遮蔽]
     // 此绑定生存于 main 函数中
     let long_lived_binding = 1;
@@ -44,24 +45,4 @@ pub fn run() {
 
     // 正常运行！ `_mutable_integer` 在这个作用域没有冻结
     _mutable_integer = 3;
-
-    // 【表达式】
-    let x = 5u32;
-
-    let y = {
-        let x_squared = x * x;
-        let x_cube = x_squared * x;
-
-        // This expression will be assigned to `y`
-        x_cube + x_squared + x
-    };
-
-    let z: () = {
-        // 分号导致计算出的值没有分配给z，z是()
-        let _ = 2 * x;
-    };
-
-    println!("x is {:?}", x);
-    println!("y is {:?}", y);
-    println!("z is {:?}", z);
 }

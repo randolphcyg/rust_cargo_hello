@@ -46,7 +46,8 @@ impl Display for Color {
     }
 }
 
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     for city in [
         City {
             name: "Dublin",

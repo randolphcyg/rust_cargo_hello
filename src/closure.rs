@@ -112,7 +112,8 @@ fn closure_output() {
     fn_once();
 }
 
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     println!("{}", "***************");
     closure_base();
     println!("{}", "***************");

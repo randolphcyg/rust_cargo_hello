@@ -1,4 +1,5 @@
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     // 计数器变量
     let mut n = 1;
 

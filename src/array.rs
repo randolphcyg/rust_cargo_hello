@@ -6,7 +6,8 @@ fn analyze_slice(slice: &[i32]) {
     println!("the slice has {} elements", slice.len());
 }
 
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     // 定长数组（类型标记是多余的）
     let xs: [i32; 5] = [1, 2, 3, 4, 5];
 

@@ -63,7 +63,8 @@ enum Color {
     Blue = 0x0000ff,
 }
 
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     use WebEvent::{Click, Paste};
     let pressed = WebEvent::KeyPress('x');
     // `to_owned()` 从一个字符串切片中创建一个具有所有权的 `String`。

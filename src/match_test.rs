@@ -323,7 +323,8 @@ fn while_let() {
     }
 }
 
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     println!("{}", "***************");
     base();
     println!("{}", "***************");

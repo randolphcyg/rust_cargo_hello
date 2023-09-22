@@ -54,7 +54,8 @@ impl fmt::Debug for Complex {
     }
 }
 
-fn main() {
+#[allow(dead_code)]
+pub fn main() {
     let minmax = MinMax(0, 15);
 
     println!("Compare structures:");
